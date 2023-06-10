@@ -1,10 +1,10 @@
 import './globals.css'
-import { Inter } from 'next/font/google'
+import { Open_Sans as OpenSans } from 'next/font/google'
 
-const inter = Inter({ subsets: ['latin'] })
+const font = OpenSans({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'Scribe',
+  title: 'Create Next App',
 }
 
 export default function RootLayout({
@@ -14,7 +14,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={font.className}>{children}</body>
     </html>
   )
 }
