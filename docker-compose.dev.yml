@@ -1,0 +1,17 @@
+version: '3'
+services:
+  frontend:
+    container_name: scribe-frontend
+    env_file: .env
+    build:
+      context: ./scribe-frontend
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    volumes:
+      - ./scribe-frontend:/usr/app/scribe-frontend
+      - /usr/app/scribe-frontend/node_modules
+
+networks:
+  scribe-app-network:
+    driver: bridge
