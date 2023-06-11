@@ -1,10 +1,10 @@
-'use client'
+"use client";
 
-import { useState, useRef, useCallback, useEffect } from 'react';
+import { useState, useRef, useCallback, useEffect } from "react";
 import Resizer from "./resizer";
 import Content from "./content/content";
-import { useSidebarContext } from '@/lib/contexts/sidebar-context';
-import { motion } from 'framer-motion'
+import { useSidebarContext } from "@/lib/contexts/sidebar-context";
+import { motion } from "framer-motion";
 
 const Sidebar = () => {
   const sidebarRef = useRef<HTMLDivElement>(null);
@@ -14,51 +14,58 @@ const Sidebar = () => {
 
   // Note that a 'toggleResize' fn isn't implemented as 'toggleResize' will trigger every time the
   // 'mouseup' event is triggered (see useEffect)
-  const startResizing = () => { 
+  const startResizing = () => {
     setIsResizing(true);
-  }
+  };
 
-  const stopResizing = () => { 
+  const stopResizing = () => {
     setIsResizing(false);
-  }
+  };
 
-  const resize = useCallback((mouseEvent: MouseEvent) => {
-    if (isResizing && sidebarRef.current) { 
-      const newWidth = mouseEvent.clientX - sidebarRef.current.getBoundingClientRect().left 
-      setSidebarWidth(newWidth);
-    }
-  }, [isResizing])
+  const resize = useCallback(
+    (mouseEvent: MouseEvent) => {
+      if (isResizing && sidebarRef.current) {
+        const newWidth =
+          mouseEvent.clientX - sidebarRef.current.getBoundingClientRect().left;
+        setSidebarWidth(newWidth);
+      }
+    },
+    [isResizing]
+  );
 
-  useEffect(() => { 
-    window.addEventListener('mousemove', resize);
-    window.addEventListener('mouseup', stopResizing);
+  useEffect(() => {
+    window.addEventListener("mousemove", resize);
+    window.addEventListener("mouseup", stopResizing);
 
-    return () => { 
-      window.removeEventListener('mousemove', resize);
-      window.removeEventListener('mouseup', stopResizing);
-    }
-  }, [resize])
+    return () => {
+      window.removeEventListener("mousemove", resize);
+      window.removeEventListener("mouseup", stopResizing);
+    };
+  }, [resize]);
 
   return (
     <motion.div
       animate={{
-        width: isResizing ? sidebarWidth : showSidebar ? sidebarWidth : 50
+        width: isResizing ? sidebarWidth : showSidebar ? sidebarWidth : 50,
       }}
       transition={{
         type: "tween",
-        duration: 0.1
+        duration: 0.1,
       }}
       ref={sidebarRef}
       className="min-h-screen min-w-[50px] max-w-screen md:max-w-[400px] grow-0 shrink-0 flex bg-white-200 dark:bg-soft-black-100"
-      onMouseDown={(e: MouseEvent) => e.preventDefault() }
+      onMouseDown={(e: MouseEvent) => e.preventDefault()}
     >
       <Content />
       <Resizer
-        onMouseDown={(e) => { e.preventDefault(); startResizing(); }}
-        active={ isResizing }
+        onMouseDown={(e) => {
+          e.preventDefault();
+          startResizing();
+        }}
+        active={isResizing}
       />
     </motion.div>
-  )
-}
+  );
+};
 
 export default Sidebar;
