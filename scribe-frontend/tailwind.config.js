@@ -13,6 +13,9 @@ module.exports = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      boxShadow: {
+        'inset-left-border': 'inset 2px 0 0 0 #106acb',
+      }
     },
 
     colors: {
@@ -50,6 +53,10 @@ module.exports = {
         700: '#c3d9e6',
         800: '#d2e2ec',
         900: '#e1ecf2'
+      },
+
+      'bright-blue': {
+        100: '#106acb'
       }
     },
   },

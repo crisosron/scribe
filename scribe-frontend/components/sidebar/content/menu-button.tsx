@@ -25,7 +25,7 @@ const MenuButton = ({ children, Icon, active, onClick }: Props) => {
       className={
         classNames(
           "min-h-[50px] w-full flex justify-center items-center hover:bg-white-100 transition cursor-pointer hover:dark:bg-white-600",
-          { "bg-sky-blue-100": isActive }
+          { "shadow-inset-left-border": isActive }
         )
       }>
       <Icon className={ 
