@@ -2,7 +2,7 @@
 
 import { useState, useRef, useCallback, useEffect } from 'react';
 import Resizer from "./resizer";
-import Content from "./content";
+import Content from "./content/content";
 
 const Sidebar = () => {
   const sidebarRef = useRef<HTMLDivElement>(null);
