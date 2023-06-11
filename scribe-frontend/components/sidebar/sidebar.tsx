@@ -9,6 +9,7 @@ const Sidebar = () => {
   const sidebarRef = useRef<HTMLDivElement>(null);
   const [isResizing, setIsResizing] = useState(false);
   const [sidebarWidth, setSidebarWidth] = useState(200);
+  const { showSidebar } = useSidebarContext();
 
   // Note that a 'toggleResize' fn isn't implemented as 'toggleResize' will trigger every time the
   // 'mouseup' event is triggered (see useEffect)
@@ -37,21 +38,24 @@ const Sidebar = () => {
     }
   }, [resize])
 
+  useEffect(() => { 
+    console.log('showSidebar has changed to: ', showSidebar);
+  }, [showSidebar])
+
   return (
-    <SidebarContextProvider>
       <div
         ref={sidebarRef}
         style={{ width: sidebarWidth }}
         className="min-h-screen min-w-[150px] max-w-screen md:max-w-[300px] grow-0 shrink-0 flex bg-white-200 dark:bg-soft-black-100"
         onMouseDown={(e) => e.preventDefault() }
       >
-        <Content />
-        <Resizer
-          onMouseDown={(e) => { e.preventDefault(); startResizing(); }}
-          active={ isResizing }
-        />
+      <Content />
+      <Resizer
+        onMouseDown={(e) => { e.preventDefault(); startResizing(); }}
+        active={ isResizing }
+      />
+      
       </div>
-    </SidebarContextProvider>
   )
 }
 
