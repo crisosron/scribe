@@ -22,6 +22,7 @@ module.exports = {
       white: {
         100: "#ffffff",
         200: "#e6e6e6",
+        250: "#dbdbdb",
         300: "#cccccc",
         400: "#999999",
         500: "#808080",
@@ -57,6 +58,14 @@ module.exports = {
 
       'bright-blue': {
         100: '#106acb'
+      },
+
+      gold: {
+        100: '#ffd700'
+      },
+      
+      green: {
+        100: '#13ed34'
       }
     },
   },
