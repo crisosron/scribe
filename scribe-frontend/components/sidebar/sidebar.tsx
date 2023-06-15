@@ -27,6 +27,11 @@ const Sidebar = () => {
       if (isResizing && sidebarRef.current) {
         const newWidth =
           mouseEvent.clientX - sidebarRef.current.getBoundingClientRect().left;
+
+        // Prevent resize when this width threshold is reached because otherwise the hover options
+        // in each OfficeItem will not be visible
+        if (newWidth <= 250) return;
+
         setSidebarWidth(newWidth);
       }
     },
@@ -54,7 +59,7 @@ const Sidebar = () => {
       }}
       ref={sidebarRef}
       className="min-h-screen min-w-[50px] max-w-screen md:max-w-[400px] grow-0 shrink-0 flex bg-white-200 dark:bg-soft-black-100"
-      onMouseDown={(e: MouseEvent) => e.preventDefault()}
+      onMouseDown={(e: React.MouseEvent) => e.preventDefault()}
     >
       <Content />
       <Resizer
