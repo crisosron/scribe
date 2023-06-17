@@ -60,13 +60,7 @@ const OfficeItem = ({ type = "cloud", name, items }: Props) => {
     const HOVER_OPTION_CLASSNAMES =
       "hover:bg-white-250 dark:hover:bg-white-700 rounded-sm transition";
     return (
-      <div
-        className="flex"
-        tabIndex={1}
-        onBlur={() => {
-          console.log("Blurred office item");
-        }}
-      >
+      <div className="flex">
         <div
           onClick={handleContextMenuClicked}
           className={`${HOVER_OPTION_CLASSNAMES} mr-2`}
@@ -103,7 +97,9 @@ const OfficeItem = ({ type = "cloud", name, items }: Props) => {
         onClick={toggleOpen}
         className="whitespace-nowrap overflow-hidden p-2 text-sm hover:bg-white-100 transition cursor-pointer hover:dark:bg-white-600 rounded-r-sm flex justify-between items-center"
       >
-        <div>
+        {/* TODO: This needs to have a set width which is updated on resize. The width should be matching the width
+        of the sidebar (needs to take into account resizing) so the truncation ellipsis also moves */}
+        <div className="max-w-[220px] truncate">
           <div className="mb-2">{name}</div>
           <div className="text-xs">{renderTypeTag()}</div>
         </div>

@@ -7,7 +7,10 @@ const SidebarItems = () => {
       <LogoBar />
 
       {/* TODO: Render office items */}
-      <OfficeItem type="cloud" name="Test cloud office" />
+      <OfficeItem
+        type="cloud"
+        name="Test cloud office lorem ipsum dolor sit amet"
+      />
     </div>
   );
 };
