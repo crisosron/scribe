@@ -7,7 +7,9 @@ const ExpandIcon = ({ width, height, className }: SvgComponentProps) => {
       height={height || SVG_COMPONENT_DEFAULTS.HEIGHT}
       viewBox="0 -960 960 960"
       width={width || SVG_COMPONENT_DEFAULTS.WIDTH}
-      className={className}
+      className={`fill-soft-black-100 dark:fill-white-200 ${
+        className || ""
+      }`.trim()}
     >
       <path d="M480-345 240-585l43-43 197 198 197-197 43 43-240 239Z" />
     </svg>
