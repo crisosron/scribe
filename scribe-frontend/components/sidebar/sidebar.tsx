@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 const Sidebar = () => {
   const sidebarRef = useRef<HTMLDivElement>(null);
   const [isResizing, setIsResizing] = useState(false);
-  const [sidebarWidth, setSidebarWidth] = useState(250);
+  const [sidebarWidth, setSidebarWidth] = useState(350);
   const { showSidebar } = useSidebarContext();
 
   // Note that a 'toggleResize' fn isn't implemented as 'toggleResize' will trigger every time the
@@ -58,7 +58,7 @@ const Sidebar = () => {
         duration: 0.1,
       }}
       ref={sidebarRef}
-      className="min-h-screen max-h-screen min-w-[50px] max-w-screen md:max-w-[400px] grow-0 shrink-0 flex bg-white-200 dark:bg-soft-black-100"
+      className="min-h-screen max-h-screen min-w-[50px] max-w-[300px] md:max-w-[500px] grow-0 shrink-0 flex bg-white-200 dark:bg-soft-black-100"
       onMouseDown={(e: React.MouseEvent) => e.preventDefault()}
     >
       <Content />
