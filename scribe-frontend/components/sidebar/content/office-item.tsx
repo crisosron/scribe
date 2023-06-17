@@ -4,6 +4,8 @@ import ExpandIcon from "@/components/svg-components/expand-icon/expand-icon";
 import DocumentBar from "./document-bar";
 import classNames from "classnames";
 import { AnimatePresence } from "framer-motion";
+import ContextMenu from "./context-menu";
+import { MOCK_CONTEXT_MENU_ACTIONS } from "@/lib/utils";
 
 type Props = {
   type: "local" | "cloud";
@@ -14,9 +16,10 @@ type Props = {
 const OfficeItem = ({ type = "cloud", name, items }: Props) => {
   const [hovered, setHovered] = useState(false);
   const [opened, setOpened] = useState(false);
-  const [moreOptionsOpened, setMoreOptionsOpened] = useState(false);
+  const [contextMenuOpened, setContextMenuOpened] = useState(false);
 
   const toggleHover = () => {
+    if (hovered) setContextMenuOpened(false);
     setHovered((prev) => !prev);
   };
 
@@ -24,13 +27,18 @@ const OfficeItem = ({ type = "cloud", name, items }: Props) => {
     setOpened((prev) => !prev);
   };
 
-  const toggleMoreOptionsOpened = () => {
-    setMoreOptionsOpened((prev) => !prev);
+  const toggleContextMenuOpen = () => {
+    setContextMenuOpened((prev) => !prev);
   };
 
-  const handleMoreOptionsClicked = (e: MouseEvent) => {
+  const handleContextMenuClicked = (e: MouseEvent) => {
     e.stopPropagation();
-    toggleMoreOptionsOpened();
+    toggleContextMenuOpen();
+  };
+
+  const resetStates = () => {
+    setHovered(false);
+    setContextMenuOpened(false);
   };
 
   const renderTypeTag = () => {
@@ -51,12 +59,26 @@ const OfficeItem = ({ type = "cloud", name, items }: Props) => {
     const HOVER_OPTION_CLASSNAMES =
       "hover:bg-white-250 dark:hover:bg-white-700 rounded-sm transition";
     return (
-      <div className="flex">
+      <div
+        className="flex"
+        tabIndex={1}
+        onBlur={() => {
+          console.log("Blurred office item");
+        }}
+      >
         <div
-          onClick={handleMoreOptionsClicked}
+          onClick={handleContextMenuClicked}
           className={`${HOVER_OPTION_CLASSNAMES} mr-2`}
         >
           <DotMenuIcon className="dark:fill-white-100" />
+          <AnimatePresence>
+            {contextMenuOpened && (
+              <ContextMenu
+                actions={MOCK_CONTEXT_MENU_ACTIONS}
+                resetParentStates={resetStates}
+              />
+            )}
+          </AnimatePresence>
         </div>
         <div className={`${HOVER_OPTION_CLASSNAMES}`}>
           <ExpandIcon
