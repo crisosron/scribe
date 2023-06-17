@@ -24,6 +24,7 @@ const OfficeItem = ({ type = "cloud", name, items }: Props) => {
   };
 
   const toggleOpen = () => {
+    setContextMenuOpened(false);
     setOpened((prev) => !prev);
   };
 

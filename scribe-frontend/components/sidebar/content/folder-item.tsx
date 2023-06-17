@@ -14,6 +14,7 @@ const FolderItem = () => {
   const [contextMenuOpened, setContextMenuOpened] = useState(false);
 
   const toggleOpen = () => {
+    setContextMenuOpened(false);
     setOpened((prev) => !prev);
   };
 
