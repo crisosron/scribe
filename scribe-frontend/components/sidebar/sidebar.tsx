@@ -8,45 +8,17 @@ import { motion } from "framer-motion";
 
 const Sidebar = () => {
   const sidebarRef = useRef<HTMLDivElement>(null);
-  const [isResizing, setIsResizing] = useState(false);
-  const [sidebarWidth, setSidebarWidth] = useState(350);
-  const { showSidebar } = useSidebarContext();
-
-  // Note that a 'toggleResize' fn isn't implemented as 'toggleResize' will trigger every time the
-  // 'mouseup' event is triggered (see useEffect)
-  const startResizing = () => {
-    setIsResizing(true);
-  };
-
-  const stopResizing = () => {
-    setIsResizing(false);
-  };
-
-  const resize = useCallback(
-    (mouseEvent: MouseEvent) => {
-      if (isResizing && sidebarRef.current) {
-        const newWidth =
-          mouseEvent.clientX - sidebarRef.current.getBoundingClientRect().left;
-
-        // Prevent resize when this width threshold is reached because otherwise the hover options
-        // in each OfficeItem will not be visible
-        if (newWidth <= 250) return;
-
-        setSidebarWidth(newWidth);
-      }
-    },
-    [isResizing]
-  );
+  const {
+    showSidebar,
+    sidebarWidth,
+    isResizing,
+    startResizing,
+    setSidebarRef,
+  } = useSidebarContext();
 
   useEffect(() => {
-    window.addEventListener("mousemove", resize);
-    window.addEventListener("mouseup", stopResizing);
-
-    return () => {
-      window.removeEventListener("mousemove", resize);
-      window.removeEventListener("mouseup", stopResizing);
-    };
-  }, [resize]);
+    setSidebarRef(sidebarRef);
+  }, []);
 
   return (
     <motion.div

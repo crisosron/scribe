@@ -6,6 +6,7 @@ import classNames from "classnames";
 import { AnimatePresence } from "framer-motion";
 import ContextMenu from "./context-menu";
 import { MOCK_CONTEXT_MENU_ACTIONS } from "@/lib/utils";
+import { useSidebarContext } from "@/lib/contexts/sidebar-context";
 
 type Props = {
   type: "local" | "cloud";
@@ -17,6 +18,7 @@ const OfficeItem = ({ type = "cloud", name, items }: Props) => {
   const [hovered, setHovered] = useState(false);
   const [opened, setOpened] = useState(false);
   const [contextMenuOpened, setContextMenuOpened] = useState(false);
+  const { sidebarWidth } = useSidebarContext();
 
   const toggleHover = () => {
     if (hovered) setContextMenuOpened(false);
@@ -95,12 +97,24 @@ const OfficeItem = ({ type = "cloud", name, items }: Props) => {
         onMouseEnter={toggleHover}
         onMouseLeave={toggleHover}
         onClick={toggleOpen}
-        className="whitespace-nowrap overflow-hidden p-2 text-sm hover:bg-white-100 transition cursor-pointer hover:dark:bg-white-600 rounded-r-sm flex justify-between items-center"
+        className="p-2 text-sm hover:bg-white-100 transition cursor-pointer hover:dark:bg-white-600 rounded-r-sm flex justify-between items-center"
       >
-        {/* TODO: This needs to have a set width which is updated on resize. The width should be matching the width
-        of the sidebar (needs to take into account resizing) so the truncation ellipsis also moves */}
-        <div className="max-w-[220px] truncate">
-          <div className="mb-2">{name}</div>
+        <div>
+          {/* 
+            The width of this div is dynamic so the ellipsis are only shown until we
+            can show all the text. 
+
+            The constant 150 is an arbitrary constant to give some distance between the text,
+            and the hover options when the text is truncated
+          */}
+          <div
+            className="whitespace-nowrap overflow-hidden text-ellipsis mb-2"
+            style={{
+              width: `${sidebarWidth - 150}px`,
+            }}
+          >
+            {name}
+          </div>
           <div className="text-xs">{renderTypeTag()}</div>
         </div>
         <div>{hovered && renderHoverOptions()}</div>
