@@ -18,7 +18,7 @@ const OfficeItem = ({ type = "cloud", name, items }: Props) => {
   const [hovered, setHovered] = useState(false);
   const [opened, setOpened] = useState(false);
   const [contextMenuOpened, setContextMenuOpened] = useState(false);
-  const { sidebarWidth } = useSidebarContext();
+  const { sidebarWidth, showSidebar } = useSidebarContext();
 
   const toggleHover = () => {
     if (hovered) setContextMenuOpened(false);
@@ -58,7 +58,7 @@ const OfficeItem = ({ type = "cloud", name, items }: Props) => {
     );
   };
 
-  const renderHoverOptions = () => {
+  const renderOptions = () => {
     const HOVER_OPTION_CLASSNAMES =
       "hover:bg-white-250 dark:hover:bg-white-700 rounded-sm transition";
     return (
@@ -67,7 +67,7 @@ const OfficeItem = ({ type = "cloud", name, items }: Props) => {
           onClick={handleContextMenuClicked}
           className={`${HOVER_OPTION_CLASSNAMES} mr-2`}
         >
-          <DotMenuIcon className="dark:fill-white-100" />
+          <DotMenuIcon />
           <AnimatePresence>
             {contextMenuOpened && (
               <ContextMenu
@@ -79,12 +79,11 @@ const OfficeItem = ({ type = "cloud", name, items }: Props) => {
         </div>
         <div className={`${HOVER_OPTION_CLASSNAMES}`}>
           <ExpandIcon
-            className={classNames(
-              "dark:fill-white-100 rotate-[270deg] transition",
-              {
-                "rotate-[360deg]": opened,
-              }
-            )}
+            className={classNames({
+              "transition rotate-[270deg]": showSidebar,
+              "rotate-[360deg]": opened,
+              "transform-none": !showSidebar,
+            })}
           />
         </div>
       </div>
@@ -117,7 +116,9 @@ const OfficeItem = ({ type = "cloud", name, items }: Props) => {
           </div>
           <div className="text-xs">{renderTypeTag()}</div>
         </div>
-        <div>{hovered && renderHoverOptions()}</div>
+        <div className="whitespace-nowrap overflow-hidden">
+          {renderOptions()}
+        </div>
       </div>
       <AnimatePresence>{opened && <DocumentBar />}</AnimatePresence>
     </>
