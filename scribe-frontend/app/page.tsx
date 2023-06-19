@@ -1,9 +1,10 @@
-import { ExampleComponent } from "@/components";
+import { Editor, Sidebar } from "@/components";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <ExampleComponent />
+    <main className="flex min-h-screen">
+      <Sidebar />
+      <Editor />
     </main>
   )
 }
