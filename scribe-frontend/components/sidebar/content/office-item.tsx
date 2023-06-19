@@ -5,7 +5,10 @@ import DocumentBar from "./document-bar";
 import classNames from "classnames";
 import { AnimatePresence } from "framer-motion";
 import ContextMenu from "./context-menu";
-import { MOCK_CONTEXT_MENU_ACTIONS } from "@/lib/utils";
+import {
+  MOCK_CONTEXT_MENU_ACTIONS,
+  MOCK_DOCUMENT_ITEMS_WITH_FOLDER,
+} from "@/lib/utils";
 import { useSidebarContext } from "@/lib/contexts/sidebar-context";
 
 type Props = {
@@ -120,7 +123,9 @@ const OfficeItem = ({ type = "cloud", name, items }: Props) => {
           {renderOptions()}
         </div>
       </div>
-      <AnimatePresence>{opened && <DocumentBar />}</AnimatePresence>
+      <AnimatePresence>
+        {opened && <DocumentBar items={MOCK_DOCUMENT_ITEMS_WITH_FOLDER} />}
+      </AnimatePresence>
     </>
   );
 };

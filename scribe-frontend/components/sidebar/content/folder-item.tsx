@@ -6,10 +6,14 @@ import DocumentBar from "./document-bar";
 import { AnimatePresence } from "framer-motion";
 import DotMenuIcon from "@/components/svg-components/dot-menu-icon/dot-menu-icon";
 import ContextMenu from "./context-menu";
-import { MOCK_CONTEXT_MENU_ACTIONS } from "@/lib/utils";
+import {
+  MOCK_CONTEXT_MENU_ACTIONS,
+  MOCK_DOCUMENT_ITEMS_FILES_ONLY,
+} from "@/lib/utils";
+import { FolderItemProps } from "./types";
 
-const FolderItem = () => {
-  const [opened, setOpened] = useState(false);
+const FolderItem = ({ name, id, type }: FolderItemProps) => {
+  const [opened, setOpened] = useState(true);
   const [hovered, setHovered] = useState(false);
   const [contextMenuOpened, setContextMenuOpened] = useState(false);
 
@@ -76,7 +80,7 @@ const FolderItem = () => {
       <AnimatePresence>
         {opened && (
           <div className="ml-2">
-            <DocumentBar />
+            <DocumentBar items={MOCK_DOCUMENT_ITEMS_FILES_ONLY} />
           </div>
         )}
       </AnimatePresence>

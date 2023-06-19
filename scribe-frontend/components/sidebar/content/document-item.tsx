@@ -1,14 +1,12 @@
 import FileItem from "./file-item";
 import FolderItem from "./folder-item";
+import { DocumentItemProps } from "./types";
 
-type Props = {
-  type: "file" | "folder";
-};
-
-const DocumentItem = ({ type }: Props) => {
+const DocumentItem = (props: DocumentItemProps) => {
+  const { type } = props;
   return (
     <div className="text-sm rounded-r-sm">
-      {type === "file" ? <FileItem /> : <FolderItem />}
+      {type === "file" ? <FileItem {...props} /> : <FolderItem {...props} />}
     </div>
   );
 };
