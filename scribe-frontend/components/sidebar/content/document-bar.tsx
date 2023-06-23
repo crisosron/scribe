@@ -14,6 +14,7 @@ const DocumentBar = ({ items }: Props) => {
       animate={{ height: "auto" }}
       exit={{ height: 0 }}
       className="whitespace-nowrap overflow-hidden"
+      transition={{ duration: 0.08 }}
     >
       {items.length > 0 &&
         items.map((item, index) => (
