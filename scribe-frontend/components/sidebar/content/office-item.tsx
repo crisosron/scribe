@@ -5,8 +5,12 @@ import DocumentBar from "./document-bar";
 import classNames from "classnames";
 import { AnimatePresence } from "framer-motion";
 import ContextMenu from "./context-menu";
-import { MOCK_CONTEXT_MENU_ACTIONS } from "@/lib/utils";
+import {
+  MOCK_CONTEXT_MENU_ACTIONS,
+  MOCK_DOCUMENT_ITEMS_WITH_FOLDER,
+} from "@/lib/utils";
 import { useSidebarContext } from "@/lib/contexts/sidebar-context";
+import { useMatchesBreakpoint } from "@/lib/hooks/useMatchesBreakpoint";
 
 type Props = {
   type: "local" | "cloud";
@@ -19,6 +23,7 @@ const OfficeItem = ({ type = "cloud", name, items }: Props) => {
   const [opened, setOpened] = useState(false);
   const [contextMenuOpened, setContextMenuOpened] = useState(false);
   const { sidebarWidth, showSidebar } = useSidebarContext();
+  const isMobileBreakpoint = useMatchesBreakpoint("sm");
 
   const toggleHover = () => {
     if (hovered) setContextMenuOpened(false);
@@ -103,13 +108,13 @@ const OfficeItem = ({ type = "cloud", name, items }: Props) => {
             The width of this div is dynamic so the ellipsis are only shown until we
             can show all the text. 
 
-            The constant 150 is an arbitrary constant to give some distance between the text,
+            The constant 200 or 150 is an arbitrary constant to give some distance between the text,
             and the hover options when the text is truncated
           */}
           <div
             className="whitespace-nowrap overflow-hidden text-ellipsis mb-2"
             style={{
-              width: `${sidebarWidth - 150}px`,
+              width: `${sidebarWidth - (isMobileBreakpoint ? 200 : 150)}px`,
             }}
           >
             {name}
@@ -120,7 +125,9 @@ const OfficeItem = ({ type = "cloud", name, items }: Props) => {
           {renderOptions()}
         </div>
       </div>
-      <AnimatePresence>{opened && <DocumentBar />}</AnimatePresence>
+      <AnimatePresence>
+        {opened && <DocumentBar items={MOCK_DOCUMENT_ITEMS_WITH_FOLDER} />}
+      </AnimatePresence>
     </>
   );
 };

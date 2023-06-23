@@ -3,19 +3,27 @@ import classNames from "classnames";
 import ExpandIcon from "@/components/svg-components/expand-icon/expand-icon";
 import FolderIcon from "@/components/svg-components/folder-icon/folder-icon";
 import DocumentBar from "./document-bar";
-import { AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import DotMenuIcon from "@/components/svg-components/dot-menu-icon/dot-menu-icon";
 import ContextMenu from "./context-menu";
-import { MOCK_CONTEXT_MENU_ACTIONS } from "@/lib/utils";
+import {
+  MOCK_CONTEXT_MENU_ACTIONS,
+  MOCK_DOCUMENT_ITEMS_FILES_ONLY,
+} from "@/lib/utils";
+import { FolderItemProps } from "./types";
+import { useSidebarContext } from "@/lib/contexts/sidebar-context";
 
-const FolderItem = () => {
-  const [opened, setOpened] = useState(false);
+const FolderItem = ({ name, id }: FolderItemProps) => {
+  const { toggleOpenedFolder, openedFolders } = useSidebarContext();
+
   const [hovered, setHovered] = useState(false);
   const [contextMenuOpened, setContextMenuOpened] = useState(false);
+  const [opened, setOpened] = useState(openedFolders.includes(`${name}-${id}`));
 
   const toggleOpen = () => {
     setContextMenuOpened(false);
     setOpened((prev) => !prev);
+    toggleOpenedFolder(`${name}-${id}`);
   };
 
   const toggleHover = () => {
@@ -43,7 +51,7 @@ const FolderItem = () => {
       >
         <div className="flex">
           <FolderIcon width={20} height={20} className="mr-2" />
-          folder
+          {name}
         </div>
         <div className="flex">
           {hovered && (
@@ -76,7 +84,7 @@ const FolderItem = () => {
       <AnimatePresence>
         {opened && (
           <div className="ml-2">
-            <DocumentBar />
+            <DocumentBar items={MOCK_DOCUMENT_ITEMS_FILES_ONLY} />
           </div>
         )}
       </AnimatePresence>

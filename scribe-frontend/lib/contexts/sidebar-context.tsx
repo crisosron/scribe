@@ -22,6 +22,8 @@ type SidebarContextValues = {
   >;
   sidebarRef: RefObject<HTMLDivElement> | undefined;
   isResizing: boolean;
+  openedFolders: string[];
+  toggleOpenedFolder: (folderId: string) => void;
 };
 
 type SidebarContextProviderProps = {
@@ -36,6 +38,8 @@ const SidebarContext = createContext<SidebarContextValues>({
   setSidebarRef: () => undefined,
   sidebarRef: undefined,
   isResizing: false,
+  openedFolders: [],
+  toggleOpenedFolder: () => undefined,
 });
 
 export const useSidebarContext = () => {
@@ -53,6 +57,17 @@ const SidebarContextProvider = ({ children }: SidebarContextProviderProps) => {
   const [sidebarWidth, setSidebarWidth] = useState(350);
   const [isResizing, setIsResizing] = useState(false);
   const [sidebarRef, setSidebarRef] = useState<RefObject<HTMLDivElement>>();
+  const [openedFolders, setOpenedFolders] = useState<string[]>([]);
+
+  const toggleOpenedFolder = (folderId: string) => {
+    if (openedFolders.includes(folderId)) {
+      setOpenedFolders((prev) =>
+        prev.filter((existingFolderId) => existingFolderId !== folderId)
+      );
+    } else {
+      setOpenedFolders((prev) => [...prev, folderId]);
+    }
+  };
 
   // Note that a 'toggleResize' fn isn't implemented as 'toggleResize' will trigger every time the
   // 'mouseup' event is triggered (see useEffect)
@@ -108,6 +123,8 @@ const SidebarContextProvider = ({ children }: SidebarContextProviderProps) => {
         startResizing,
         setSidebarRef,
         toggleSidebar,
+        openedFolders,
+        toggleOpenedFolder,
       }}
     >
       {children}

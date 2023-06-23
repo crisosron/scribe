@@ -1,7 +1,12 @@
 import { motion } from "framer-motion";
 import DocumentItem from "./document-item";
+import { DocumentItemProps } from "./types";
 
-const DocumentBar = () => {
+type Props = {
+  items: DocumentItemProps[];
+};
+
+const DocumentBar = ({ items }: Props) => {
   // TODO: The given array of documents should be ordered by alphabetical order before rendering
   return (
     <motion.div
@@ -9,12 +14,12 @@ const DocumentBar = () => {
       animate={{ height: "auto" }}
       exit={{ height: 0 }}
       className="whitespace-nowrap overflow-hidden"
+      transition={{ duration: 0.08 }}
     >
-      {/* TODO: Render DocumentItems */}
-      <DocumentItem type="file" />
-      <DocumentItem type="file" />
-      <DocumentItem type="folder" />
-      <DocumentItem type="file" />
+      {items.length > 0 &&
+        items.map((item, index) => (
+          <DocumentItem key={`document-item-${index}`} {...item} />
+        ))}
     </motion.div>
   );
 };
