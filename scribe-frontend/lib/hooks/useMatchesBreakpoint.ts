@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 export const useMatchesBreakpoint = (targetBreakpoint: 'sm' | 'md' | 'lg') => {
   const [matchesTargetBreakpoint, setMatchesTargetBreakpoint] = useState(false);
-  let mediaQuery;
+  let mediaQuery: string;
 
   // Note: these media queries were taken from the tailwind css defaults (but max-width instead)
   // https://tailwindcss.com/docs/screens
@@ -14,9 +14,8 @@ export const useMatchesBreakpoint = (targetBreakpoint: 'sm' | 'md' | 'lg') => {
       mediaQuery = '(max-width: 640px)'
   }
 
-  const mediaMatch = window.matchMedia(mediaQuery)
-
   useEffect(() => {
+    const mediaMatch = window.matchMedia(mediaQuery)
     setMatchesTargetBreakpoint(mediaMatch.matches);
 
     const handler = (e: any) => setMatchesTargetBreakpoint(e.matches)
