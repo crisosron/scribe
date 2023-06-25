@@ -45,12 +45,10 @@ const GlobalContextProvider = ({ children }: GlobalContextProviderProps) => {
   };
 
   const toggleClerk = () => {
-    console.log("Toggling clerk");
     setIsClerkOpen((prev) => !prev);
   };
 
   useEffect(() => {
-    console.log("latestKeyCombination: ", latestKeyCombination);
     if (clerkKeyComboPressed(latestKeyCombination)) toggleClerk();
   }, [latestKeyCombination]);
 
