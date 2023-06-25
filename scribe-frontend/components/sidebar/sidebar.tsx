@@ -5,6 +5,7 @@ import Resizer from "./resizer";
 import Content from "./content/content";
 import { useSidebarContext } from "@/lib/contexts/sidebar-context";
 import { motion } from "framer-motion";
+import { useGlobalContext } from "@/lib/contexts/global-context";
 
 const Sidebar = () => {
   const sidebarRef = useRef<HTMLDivElement>(null);
@@ -15,6 +16,7 @@ const Sidebar = () => {
     startResizing,
     setSidebarRef,
   } = useSidebarContext();
+  const { isClerkOpen } = useGlobalContext();
 
   useEffect(() => {
     setSidebarRef(sidebarRef);
