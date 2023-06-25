@@ -1,6 +1,13 @@
 "use client";
 
-import { ReactNode, createContext, useContext, useState } from "react";
+import {
+  ReactNode,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
+import useKeys, { KeyCombination } from "../hooks/useKeys";
 
 type GlobalContextProviderProps = {
   children?: ReactNode;
@@ -28,11 +35,24 @@ export const useGlobalContext = () => {
 
 const GlobalContextProvider = ({ children }: GlobalContextProviderProps) => {
   const [isClerkOpen, setIsClerkOpen] = useState(false);
+  const { latestKeyCombination } = useKeys();
+
+  const clerkKeyComboPressed = (keyCombo: KeyCombination) => {
+    return (
+      (keyCombo.controlKey === "Meta" || keyCombo.controlKey === "Control") &&
+      keyCombo.actionKey === "p"
+    );
+  };
 
   const toggleClerk = () => {
-    console.log("toggled clerk");
+    console.log("Toggling clerk");
     setIsClerkOpen((prev) => !prev);
   };
+
+  useEffect(() => {
+    console.log("latestKeyCombination: ", latestKeyCombination);
+    if (clerkKeyComboPressed(latestKeyCombination)) toggleClerk();
+  }, [latestKeyCombination]);
 
   return (
     <GlobalContext.Provider
