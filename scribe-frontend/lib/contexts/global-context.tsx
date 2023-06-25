@@ -50,6 +50,7 @@ const GlobalContextProvider = ({ children }: GlobalContextProviderProps) => {
 
   useEffect(() => {
     if (clerkKeyComboPressed(latestKeyCombination)) toggleClerk();
+    else if (latestKeyCombination.actionKey === "Escape") setIsClerkOpen(false);
   }, [latestKeyCombination]);
 
   return (
