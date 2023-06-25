@@ -83,8 +83,11 @@ const FolderItem = ({ name, id }: FolderItemProps) => {
       </div>
       <AnimatePresence>
         {opened && (
-          <div className="ml-2">
-            <DocumentBar items={MOCK_DOCUMENT_ITEMS_FILES_ONLY} />
+          <div className="ml-4">
+            <DocumentBar
+              items={MOCK_DOCUMENT_ITEMS_FILES_ONLY}
+              className="border-l border-white-300 dark:border-white-500"
+            />
           </div>
         )}
       </AnimatePresence>
