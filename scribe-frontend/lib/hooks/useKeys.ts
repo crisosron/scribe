@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 const CONTROL_KEY_NAMES = [
   "Control",
@@ -65,24 +65,26 @@ const useKeys = () => {
     }
   }
 
-  const handleKeyEvent = (e: KeyboardEvent, eventType: "down" | "up") => {
+  const handleKeyEvent = useCallback((e: KeyboardEvent, eventType: "down" | "up") => {
     if (CONTROL_KEY_NAMES.includes(e.key)) {
       handleControlKeyEvent(e, eventType);
-    } else {
+    } else if(latestKeyCombination.controlKey){
+      console.log('Need to handle an action key');
+      e.preventDefault();
       handleRegularKeyEvent(e, eventType)
     }
-  };
+  }, [latestKeyCombination.controlKey]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => handleKeyEvent(e, "down");
     const handleKeyUp = (e: KeyboardEvent) => handleKeyEvent(e, "up");
 
     window.addEventListener("keydown", (event: KeyboardEvent) => {
-      event.preventDefault();
+      // event.preventDefault();
       handleKeyEvent(event, "down")
     });
     window.addEventListener("keyup", (event: KeyboardEvent) => {
-      event.preventDefault();
+      // event.preventDefault();
       handleKeyEvent(event, "up")
     });
 
@@ -90,7 +92,7 @@ const useKeys = () => {
       window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("keyup", handleKeyUp);
     };
-  }, []);
+  }, [handleKeyEvent]);
 
   return {
     heldKeys,

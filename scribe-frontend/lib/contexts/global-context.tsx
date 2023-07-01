@@ -8,6 +8,7 @@ import {
   useState,
 } from "react";
 import useKeys, { KeyCombination } from "../hooks/useKeys";
+import useHotkey from "../hooks/useHotkey";
 
 type GlobalContextProviderProps = {
   children?: ReactNode;
@@ -35,23 +36,21 @@ export const useGlobalContext = () => {
 
 const GlobalContextProvider = ({ children }: GlobalContextProviderProps) => {
   const [isClerkOpen, setIsClerkOpen] = useState(false);
-  const { latestKeyCombination } = useKeys();
+  // const { latestKeyCombination } = useKeys();
+  useHotkey({
+    targetControlKeys: ["Meta", "Control"],
+    targetActionKey: "p",
+    callback: () => toggleClerk()
+  });
 
-  const clerkKeyComboPressed = (keyCombo: KeyCombination) => {
-    return (
-      (keyCombo.controlKey === "Meta" || keyCombo.controlKey === "Control") &&
-      keyCombo.actionKey === "p"
-    );
-  };
+  useHotkey({
+    targetActionKey: 'Escape',
+    callback: () => setIsClerkOpen(false)
+  })
 
   const toggleClerk = () => {
     setIsClerkOpen((prev) => !prev);
   };
-
-  useEffect(() => {
-    if (clerkKeyComboPressed(latestKeyCombination)) toggleClerk();
-    else if (latestKeyCombination.actionKey === "Escape") setIsClerkOpen(false);
-  }, [latestKeyCombination]);
 
   return (
     <GlobalContext.Provider
