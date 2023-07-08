@@ -5,7 +5,7 @@ type EVENT_TYPE = 'down' | 'up'
 
 type Parameters = {
   targetControlKeys?: string[],
-  targetActionKey?: string
+  targetActionKey?: string,
   callback: (e: KeyboardEvent | undefined) => void
 }
 
@@ -34,6 +34,13 @@ const useHotkey = ({ targetControlKeys, targetActionKey, callback }: Parameters)
     else if(VALID_ACTION_KEYS.includes(e.key) &&
       targetActionKey === e.key &&
       heldControlKeys.some((key) => targetControlKeys?.includes(key))) {
+      e.preventDefault();
+      callback(e);
+    } else if(
+      !targetControlKeys &&
+      VALID_ACTION_KEYS.includes(e.key) &&
+      targetActionKey === e.key
+    ) {
       e.preventDefault();
       callback(e);
     }
