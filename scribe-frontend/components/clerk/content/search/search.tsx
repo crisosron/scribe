@@ -9,7 +9,7 @@ const Search = () => {
   }
 
   return (
-    <div className="w-full h-[35px] md:h-[50px] rounded-md bg-white-200 dark:bg-soft-black-400 flex items-center">
+    <div className="w-full h-[35px] md:h-[50px] rounded-md bg-white-200 dark:bg-soft-black-400 flex items-center mb-4">
       <div className="w-[37px] md:w-[52px] h-full flex justify-center items-center">
         <SearchIcon className="h-6 w-6 md:h-[30px] md:w-[30px] fill-white-500 dark:fill-white-400" />
       </div>
