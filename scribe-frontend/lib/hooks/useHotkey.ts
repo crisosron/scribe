@@ -6,10 +6,11 @@ type EVENT_TYPE = 'down' | 'up'
 type Parameters = {
   targetControlKeys?: string[],
   targetActionKey?: string,
+  triggerEvent?: 'down' | 'up',
   callback: (e: KeyboardEvent | undefined) => void
 }
 
-const useHotkey = ({ targetControlKeys, targetActionKey, callback }: Parameters) => {
+const useHotkey = ({ targetControlKeys, targetActionKey, callback, triggerEvent }: Parameters) => {
   const [heldControlKeys, setHeldControlKeys] = useState<string[]>([]);
   const handleKeyEventRef = useRef<(e: KeyboardEvent, eventType: EVENT_TYPE) => void>(
     () => {} 
@@ -61,8 +62,14 @@ const useHotkey = ({ targetControlKeys, targetActionKey, callback }: Parameters)
     const handleKeyDown = (e: KeyboardEvent) => handleKeyEventRef.current(e, "down");
     const handleKeyUp = (e: KeyboardEvent) => handleKeyEventRef.current(e, "up");
 
-    window.addEventListener('keydown', handleKeyDown);
-    window.addEventListener('keyup', handleKeyUp);
+    if(!triggerEvent) {
+      window.addEventListener('keydown', handleKeyDown);
+      window.addEventListener('keyup', handleKeyUp);
+    } else if(triggerEvent === 'down') {  
+      window.addEventListener('keydown', handleKeyDown);
+    } else if(triggerEvent === 'up') {
+      window.addEventListener('keyup', handleKeyDown);
+    }
 
     return () => {
       window.removeEventListener("keydown", handleKeyDown);

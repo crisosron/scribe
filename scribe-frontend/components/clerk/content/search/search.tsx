@@ -20,6 +20,7 @@ const Search = () => {
         value={value}
         onChange={handleInputChange}
         autoFocus
+        autoComplete="off"
         className="w-full h-[30px] md:h-[50px] rounded-md bg-white-200 dark:bg-soft-black-400 border-none focus:outline-none" 
       />
     </div>

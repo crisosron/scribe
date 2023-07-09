@@ -1,36 +1,34 @@
-import { useState, useEffect } from "react";
+import { useState, SetStateAction, Dispatch } from "react";
 import classNames from "classnames";
 
-interface Category {
-  label: 'General' | 'Actions' | 'Files',
+export interface Segment {
+  label: string;
   styles?: string,
   selectedStyles?: string,
 }
 
-const SegmentMenu = () => {
-  const [selectedCategory, setSelectedCategory] = useState<'General' | 'Actions' | 'Files'>('General');
+type Props = {
+  selectedSegment?: Segment,
+  setSelectedSegment: Dispatch<SetStateAction<Segment>>,
+  segments: Segment[]
+}
 
-  const categories: Category[] = [
-    { label: 'General', selectedStyles: 'bg-white-200 dark:bg-white-700' }, 
-    { label: 'Actions', selectedStyles: 'bg-green-100 bg-opacity-25 text-green-500 dark:text-green-100'},
-    { label: 'Files', selectedStyles: 'bg-gold-100 bg-opacity-25 text-gold-500 dark:text-gold-100' }
-  ]
-
-  const handleCategorySelected = (category: 'General' | 'Actions' | 'Files') => {
-    setSelectedCategory(category);
+const SegmentMenu = ({ selectedSegment, setSelectedSegment, segments }: Props) => {
+  const handleSegmentSelected = (segment: Segment) => {
+    setSelectedSegment(segment);
   }
 
   return (
     <div className="flex justify-center items-center rounded-xl">
       {
-        categories.map((category, index) => {
+        segments.map((segment, index) => {
           return (
             <div 
-              className={classNames(`min-w-[80px] p-2 text-sm flex justify-center items-center rounded-md cursor-pointer transition-all ${category.styles}`, {
-                [`${category.selectedStyles}`]: selectedCategory === category.label
+              className={classNames(`min-w-[80px] p-2 text-sm flex justify-center items-center rounded-md cursor-pointer transition-all ${segment.styles}`, {
+                [`${segment.selectedStyles}`]: selectedSegment && selectedSegment.label === segment.label
               })}
-              onClick={() => handleCategorySelected(category.label)}
-              key={`toast-item-${category.label}`}>{category.label}
+              onClick={() => handleSegmentSelected(segment)}
+              key={`toast-item-${segment.label}`}>{segment.label}
             </div>
           )
         })

@@ -1,6 +1,7 @@
 export const VALID_ACTION_KEYS = [
   'p', // Clerk toggle
-  'Escape'
+  'Escape',
+  'Tab'
 ];
 
 export const VALID_CONTROL_KEYS = [
