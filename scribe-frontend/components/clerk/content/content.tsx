@@ -2,6 +2,7 @@ import { useState } from "react";
 import useHotkey from "@/lib/hooks/useHotkey";
 import Search from "./search/search";
 import SegmentMenu, { Segment } from "./segment-menu/segment-menu";
+import HintBar from "./hint-bar/hint-bar";
 
 const Content = () => {
   const segments: Segment[] = [
@@ -17,7 +18,7 @@ const Content = () => {
     triggerEvent: 'down',
     callback: () => {
       const currentSegmentIndex = segments.findIndex(segment => segment.label === selectedSegment.label);
-      if(currentSegmentIndex + 1 > segments.length - 1) setSelectedSegment(segments[0]);
+      if(currentSegmentIndex === segments.length - 1) setSelectedSegment(segments[0]);
       else setSelectedSegment(segments[currentSegmentIndex + 1]);
     }
   })
@@ -25,6 +26,7 @@ const Content = () => {
   return (
     <div className="min-w-[80%] md:min-w-[65%] lg:min-w-[40%] min-h-[200px] bg-white-100 dark:bg-soft-black-100 shadow-2xl rounded-lg p-4">
       <Search />
+      <HintBar />
       <SegmentMenu selectedSegment={selectedSegment} setSelectedSegment={setSelectedSegment} segments={segments} />
     </div>
   );
