@@ -10,7 +10,7 @@ const HintBar = () => {
   if(isMobile) return null;
 
   return (
-    <div className="flex justify-center items-center w-full h-[30px] bg-white-300 dark:bg-soft-black-300 text-xs mb-4 rounded-b-md text-white-400">
+    <div className="flex justify-center items-center w-full h-[30px] bg-white-300 dark:bg-soft-black-300 text-xs mb-4 rounded-b-md text-soft-black-100 dark:text-white-400">
       <div className="inline md:mx-2">
         <span className="text-xs md:text-md">&#8593;</span> {/* Up arrow character */}
         <span className="text-xs md:text-md">&#8595;</span> {/* Down arrow character */}

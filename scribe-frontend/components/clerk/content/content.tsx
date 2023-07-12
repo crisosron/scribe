@@ -3,6 +3,13 @@ import useHotkey from "@/lib/hooks/useHotkey";
 import Search from "./search/search";
 import SegmentMenu, { Segment } from "./segment-menu/segment-menu";
 import HintBar from "./hint-bar/hint-bar";
+import Commands from "./commands-section/commands-section";
+
+export interface Command {
+  type: 'action' | 'file',
+  label: string,
+  id: string,
+}
 
 const Content = () => {
   const segments: Segment[] = [
@@ -23,11 +30,18 @@ const Content = () => {
     }
   })
 
+  // TODO: This should come from the command registry
+  const commands: Command[] = [
+    { type: 'action', label: 'Action Item', id: 'action-item' },
+    { type: 'file', label: 'File Item', id: 'file-item' }
+  ]
+
   return (
     <div className="min-w-[80%] md:min-w-[65%] lg:min-w-[40%] min-h-[200px] bg-white-100 dark:bg-soft-black-100 shadow-2xl rounded-lg p-4">
       <Search />
       <HintBar />
       <SegmentMenu selectedSegment={selectedSegment} setSelectedSegment={setSelectedSegment} segments={segments} />
+      <Commands commands={commands} />
     </div>
   );
 };

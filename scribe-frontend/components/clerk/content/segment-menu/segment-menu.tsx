@@ -28,7 +28,7 @@ const SegmentMenu = ({ selectedSegment, setSelectedSegment, segments }: Props) =
                 [`${segment.selectedStyles}`]: selectedSegment && selectedSegment.label === segment.label
               })}
               onClick={() => handleSegmentSelected(segment)}
-              key={`toast-item-${segment.label}`}>{segment.label}
+              key={`segment-item-${segment.label}`}>{segment.label}
             </div>
           )
         })
