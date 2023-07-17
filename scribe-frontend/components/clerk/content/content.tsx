@@ -18,7 +18,28 @@ const Content = () => {
     { label: 'Files', selectedStyles: 'bg-gold-100 bg-opacity-25 text-gold-500 dark:text-gold-100' }
   ]
 
+  // TODO: This should come from the command registry
+  const commands: Command[] = [
+    { type: 'action', label: 'Action Item', id: 'action-item' },
+    { type: 'file', label: 'File Item', id: 'file-item' }
+  ]
+
   const [selectedSegment, setSelectedSegment] = useState<Segment>(segments[0]);
+  const [selectedCommand, setSelectedCommand] = useState<Command>(commands[0]);
+
+  const navigateCommand = (direction: 'up' | 'down') => {
+    const currentlySelectedCommandIndex = commands.findIndex(command => command.id === selectedCommand?.id);
+    switch(direction) {
+      case 'up':
+        if (currentlySelectedCommandIndex === 0) setSelectedCommand(commands[commands.length - 1]);
+        else setSelectedCommand(commands[currentlySelectedCommandIndex - 1]);
+        break;
+      default:
+        if (currentlySelectedCommandIndex === commands.length - 1) setSelectedCommand(commands[0]);
+        else setSelectedCommand(commands[currentlySelectedCommandIndex + 1]);
+        break;
+    }
+  }
 
   useHotkey({
     targetActionKey: 'Tab',
@@ -30,18 +51,24 @@ const Content = () => {
     }
   })
 
-  // TODO: This should come from the command registry
-  const commands: Command[] = [
-    { type: 'action', label: 'Action Item', id: 'action-item' },
-    { type: 'file', label: 'File Item', id: 'file-item' }
-  ]
+  useHotkey({
+    targetActionKey: 'ArrowUp',
+    triggerEvent: 'down',
+    callback: () => navigateCommand('up')
+  })
+
+  useHotkey({
+    targetActionKey: 'ArrowDown',
+    triggerEvent: 'down',
+    callback: () => navigateCommand('down')
+  })
 
   return (
     <div className="min-w-[80%] md:min-w-[65%] lg:min-w-[40%] min-h-[200px] bg-white-100 dark:bg-soft-black-100 shadow-2xl rounded-lg p-4">
       <Search />
       <HintBar />
       <SegmentMenu selectedSegment={selectedSegment} setSelectedSegment={setSelectedSegment} segments={segments} />
-      <Commands commands={commands} />
+      <Commands commands={commands} selectedCommand={selectedCommand} />
     </div>
   );
 };
