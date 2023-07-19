@@ -26,7 +26,7 @@ const Content = () => {
 
   const [selectedSegment, setSelectedSegment] = useState<Segment>(segments[0]);
   const [selectedCommand, setSelectedCommand] = useState<Command>(commands[0]);
-
+  
   const navigateCommand = (direction: 'up' | 'down') => {
     const currentlySelectedCommandIndex = commands.findIndex(command => command.id === selectedCommand?.id);
     switch(direction) {
@@ -68,7 +68,7 @@ const Content = () => {
       <Search />
       <HintBar />
       <SegmentMenu selectedSegment={selectedSegment} setSelectedSegment={setSelectedSegment} segments={segments} />
-      <Commands commands={commands} selectedCommand={selectedCommand} />
+      <Commands commands={commands} selectedCommand={selectedCommand} setSelectedCommand={setSelectedCommand} />
     </div>
   );
 };
