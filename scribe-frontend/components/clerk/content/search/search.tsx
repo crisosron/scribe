@@ -14,8 +14,8 @@ const Search = () => {
   return (
     <div className={
       classNames(
-        'w-full h-[35px] md:h-[50px] bg-white-200 dark:bg-soft-black-400 flex items-center mb-4', 
-        { 'rounded-t-md mb-0': !isMobile } // Make compatible with hint bar
+        'w-full h-[35px] md:h-[50px] bg-white-200 dark:bg-soft-black-400 flex items-center', 
+        { 'rounded-t-md': !isMobile, 'mb-4': isMobile } // Style hint-bar for mobile vs non-mobile
     )}>
       <div className="w-[37px] md:w-[52px] h-full flex justify-center items-center">
         <SearchIcon className="h-6 w-6 md:h-[30px] md:w-[30px] fill-white-500 dark:fill-white-400" />
