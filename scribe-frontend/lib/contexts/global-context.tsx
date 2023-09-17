@@ -6,8 +6,8 @@ import {
   useContext,
   useState,
 } from "react";
-import useKeys, { KeyCombination } from "../hooks/useKeys";
 import useHotkey from "../hooks/useHotkey";
+import CommandRegistry from "../classes/command-registry";
 
 type GlobalContextProviderProps = {
   children?: ReactNode;
@@ -16,11 +16,13 @@ type GlobalContextProviderProps = {
 type GlobalContextValue = {
   toggleClerk: () => void;
   isClerkOpen: boolean;
+  commandRegistry: CommandRegistry;
 };
 
 const GlobalContext = createContext<GlobalContextValue>({
   toggleClerk: () => undefined,
   isClerkOpen: false,
+  commandRegistry: CommandRegistry.instance
 });
 
 export const useGlobalContext = () => {
@@ -35,7 +37,7 @@ export const useGlobalContext = () => {
 
 const GlobalContextProvider = ({ children }: GlobalContextProviderProps) => {
   const [isClerkOpen, setIsClerkOpen] = useState(false);
-  // const { latestKeyCombination } = useKeys();
+  const commandRegistry = CommandRegistry.instance;
   useHotkey({
     targetControlKeys: ["Meta", "Control"],
     targetActionKey: "p",
@@ -56,6 +58,7 @@ const GlobalContextProvider = ({ children }: GlobalContextProviderProps) => {
       value={{
         isClerkOpen,
         toggleClerk,
+        commandRegistry
       }}
     >
       {children}

@@ -4,6 +4,7 @@ import Search from "./search/search";
 import SegmentMenu, { Segment } from "./segment-menu/segment-menu";
 import HintBar from "./hint-bar/hint-bar";
 import Commands from "./commands-section/commands-section";
+import { useGlobalContext } from "@/lib/contexts/global-context";
 
 export interface Command {
   type: 'action' | 'file',
@@ -18,11 +19,11 @@ const Content = () => {
     { label: 'Files', selectedStyles: 'bg-gold-100 bg-opacity-25 text-gold-500 dark:text-gold-100' }
   ]
 
-  // TODO: This should come from the command registry
-  const commands: Command[] = [
-    { type: 'action', label: 'Action Item', id: 'action-item' },
-    { type: 'file', label: 'File Item', id: 'file-item' }
-  ]
+  const { commandRegistry } = useGlobalContext(); 
+  console.log('commandRegistry.commands: ', commandRegistry.allCommands);
+
+  // TODO: This needs to be filtered based on the current segment
+  const commands = commandRegistry.allCommands;
 
   const [selectedSegment, setSelectedSegment] = useState<Segment>(segments[0]);
   const [selectedCommand, setSelectedCommand] = useState<Command>(commands[0]);
