@@ -39,7 +39,7 @@ const GlobalContextProvider = ({ children }: GlobalContextProviderProps) => {
   const [isClerkOpen, setIsClerkOpen] = useState(false);
   const commandRegistry = CommandRegistry.instance;
   useHotkey({
-    targetControlKeys: ["Meta", "Control"],
+    targetControlKeys: ["Control"],
     targetActionKey: "p",
     callback: () => toggleClerk()
   });

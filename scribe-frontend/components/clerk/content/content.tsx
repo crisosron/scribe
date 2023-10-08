@@ -5,6 +5,7 @@ import SegmentMenu, { Segment } from "./segment-menu/segment-menu";
 import HintBar from "./hint-bar/hint-bar";
 import Commands from "./commands-section/commands-section";
 import { useGlobalContext } from "@/lib/contexts/global-context";
+import Command from "@/lib/classes/command";
 
 const Content = () => {
   const segments: Segment[] = [

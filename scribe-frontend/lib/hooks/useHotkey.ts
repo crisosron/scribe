@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useRef, useLayoutEffect, Key } from 'react';
-import { VALID_ACTION_KEYS, VALID_CONTROL_KEYS } from '../keyboard-utils';
+import { VALID_ACTION_KEYS, VALID_CONTROL_KEYS, keyNameForCurrentPlatform } from '../keyboard-utils';
 
 type EVENT_TYPE = 'down' | 'up'
 
@@ -11,6 +11,10 @@ type Parameters = {
 }
 
 const useHotkey = ({ targetControlKeys, targetActionKey, callback, triggerEvent }: Parameters) => {
+  // Convert the target control keys to their counterparts of the current platform
+  // e.g. Control -> Meta (cmd) for macOS
+  const targetControlKeysForPlatform = targetControlKeys?.map((key) => keyNameForCurrentPlatform(key));
+
   const [heldControlKeys, setHeldControlKeys] = useState<string[]>([]);
   const handleKeyEventRef = useRef<(e: KeyboardEvent, eventType: EVENT_TYPE) => void>(
     () => {} 
@@ -31,21 +35,21 @@ const useHotkey = ({ targetControlKeys, targetActionKey, callback, triggerEvent 
   };
 
   const handleKeyEvent = useCallback((e: KeyboardEvent, eventType: EVENT_TYPE) => {
-    if(VALID_CONTROL_KEYS.includes(e.key) && targetControlKeys && targetControlKeys.includes(e.key)) handleControlKeyEvent(e, eventType)
+    if(VALID_CONTROL_KEYS.includes(e.key) && targetControlKeysForPlatform && targetControlKeysForPlatform.includes(e.key)) handleControlKeyEvent(e, eventType)
     else if(VALID_ACTION_KEYS.includes(e.key) &&
       targetActionKey === e.key &&
-      heldControlKeys.some((key) => targetControlKeys?.includes(key))) {
+      heldControlKeys.some((key) => targetControlKeysForPlatform?.includes(key))) {
       e.preventDefault();
       callback(e);
     } else if(
-      !targetControlKeys &&
+      !targetControlKeysForPlatform &&
       VALID_ACTION_KEYS.includes(e.key) &&
       targetActionKey === e.key
     ) {
       e.preventDefault();
       callback(e);
     }
-  }, [heldControlKeys, targetActionKey, targetControlKeys, callback])
+  }, [heldControlKeys, targetActionKey, targetControlKeysForPlatform, callback])
 
   // Employ the callback ref pattern so the latest version of the callback is always called
   //
