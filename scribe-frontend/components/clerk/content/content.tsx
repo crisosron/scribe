@@ -6,12 +6,6 @@ import HintBar from "./hint-bar/hint-bar";
 import Commands from "./commands-section/commands-section";
 import { useGlobalContext } from "@/lib/contexts/global-context";
 
-export interface Command {
-  type: 'action' | 'file',
-  label: string,
-  id: string,
-}
-
 const Content = () => {
   const segments: Segment[] = [
     { label: 'General', selectedStyles: 'bg-white-200 dark:bg-white-700' }, 

@@ -1,13 +1,16 @@
 import classNames from 'classnames';
-import { Command } from "../content";
+// import { Command } from "../content";
 import { useMatchesBreakpoint } from '@/lib/hooks/useMatchesBreakpoint';
+import Command from '@/lib/classes/command';
+import HotkeyHint from './hotkey-hint';
 
 interface Props extends Command {
   active?: boolean;
   onHover: () => void
 }
 
-const CommandItem = ({ type, label, id, active, onHover }: Props) => {
+const CommandItem = ({ type, label, id, hotkey, active, onHover }: Props) => {
+  console.log('Command Item hotkey: ', hotkey);
   const isMobile = useMatchesBreakpoint('sm');
   return (
     <div 
@@ -22,7 +25,7 @@ const CommandItem = ({ type, label, id, active, onHover }: Props) => {
       onMouseEnter={onHover}
     >
       <div>{label}</div>
-      { !isMobile && <div>Hotkey Hint</div>}
+      { !isMobile && hotkey && <HotkeyHint {...hotkey} />}
     </div>
   )
 

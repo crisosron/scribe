@@ -18,7 +18,7 @@ const HintBar = () => {
       </div>
 
       <div className="inline md:mx-2">
-        <span className="text-lg">&#8677;</span> {/* Tab character */}
+        <span className="text-xs">tab</span>
         <span className="mx-2">to switch</span>
       </div>
 
