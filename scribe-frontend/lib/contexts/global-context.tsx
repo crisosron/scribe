@@ -8,6 +8,7 @@ import {
 } from "react";
 import useHotkey from "../hooks/useHotkey";
 import CommandRegistry from "../classes/command-registry";
+import HotkeyRegistry, { HOTKEY_IDS } from "../classes/hotkey-registry";
 
 type GlobalContextProviderProps = {
   children?: ReactNode;
@@ -17,12 +18,14 @@ type GlobalContextValue = {
   toggleClerk: () => void;
   isClerkOpen: boolean;
   commandRegistry: CommandRegistry;
+  hotkeyRegistry: HotkeyRegistry;
 };
 
 const GlobalContext = createContext<GlobalContextValue>({
   toggleClerk: () => undefined,
   isClerkOpen: false,
-  commandRegistry: CommandRegistry.instance
+  commandRegistry: CommandRegistry.instance,
+  hotkeyRegistry: HotkeyRegistry.instance
 });
 
 export const useGlobalContext = () => {
@@ -38,15 +41,26 @@ export const useGlobalContext = () => {
 const GlobalContextProvider = ({ children }: GlobalContextProviderProps) => {
   const [isClerkOpen, setIsClerkOpen] = useState(false);
   const commandRegistry = CommandRegistry.instance;
+  const hotkeyRegistry = HotkeyRegistry.instance;
+
   useHotkey({
-    targetControlKeys: ["Control"],
-    targetActionKey: "p",
+    hotkey: hotkeyRegistry.getHotkey(HOTKEY_IDS.TOGGLE_CLERK ),
     callback: () => toggleClerk()
   });
 
   useHotkey({
-    targetActionKey: 'Escape',
+    hotkey: hotkeyRegistry.getHotkey(HOTKEY_IDS.ESC),
     callback: () => setIsClerkOpen(false)
+  })
+
+  useHotkey({
+    hotkey: hotkeyRegistry.getHotkey(HOTKEY_IDS.OPEN_FILE),
+    callback: () => commandRegistry.findCommand({ id: 'open-file' })
+  })
+
+  useHotkey({
+    hotkey: hotkeyRegistry.getHotkey(HOTKEY_IDS.SAVE_FILE),
+    callback: () => commandRegistry.findCommand({ id: 'save-file' })
   })
 
   const toggleClerk = () => {
@@ -58,7 +72,8 @@ const GlobalContextProvider = ({ children }: GlobalContextProviderProps) => {
       value={{
         isClerkOpen,
         toggleClerk,
-        commandRegistry
+        commandRegistry,
+        hotkeyRegistry
       }}
     >
       {children}

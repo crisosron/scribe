@@ -1,16 +1,20 @@
 import { useState, useEffect, useCallback, useRef, useLayoutEffect, Key } from 'react';
 import { VALID_ACTION_KEYS, VALID_CONTROL_KEYS, keyNameForCurrentPlatform } from '../keyboard-utils';
+import { Hotkey } from '../classes/hotkey-registry';
 
 type EVENT_TYPE = 'down' | 'up'
 
 type Parameters = {
-  targetControlKeys?: string[],
-  targetActionKey?: string,
+  // targetControlKeys?: string[],
+  // targetActionKey?: string,
+  hotkey: Hotkey,
   triggerEvent?: 'down' | 'up',
   callback: (e: KeyboardEvent | undefined) => void
 }
 
-const useHotkey = ({ targetControlKeys, targetActionKey, callback, triggerEvent }: Parameters) => {
+const useHotkey = ({ hotkey, callback, triggerEvent }: Parameters) => {
+  const { controlKeys: targetControlKeys, actionKey: targetActionKey } = hotkey || {};
+
   // Convert the target control keys to their counterparts of the current platform
   // e.g. Control -> Meta (cmd) for macOS
   const targetControlKeysForPlatform = targetControlKeys?.map((key) => keyNameForCurrentPlatform(key));

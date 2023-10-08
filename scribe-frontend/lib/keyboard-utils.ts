@@ -28,7 +28,7 @@ export const KEY_NAME_TO_LABEL: {
 export const macOSKeyNames: {
   [key: string]: string
 } = {
-  'Control': 'Meta'
+  'Control': 'Meta' // 'Meta' points to CMD for macOS
 }
 
 /**
@@ -40,7 +40,7 @@ export const macOSKeyNames: {
  */
 export const keyNameForCurrentPlatform = (keyName: string) =>{
   if(!window) return keyName;
-  
+
   // Use feature detection guard because window.navigator.platform is deprecated
   if('platform' in window.navigator) {
     const platform = window.navigator.platform;

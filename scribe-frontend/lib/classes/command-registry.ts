@@ -1,6 +1,7 @@
-import Command, { CommandSearchProperties, Hotkey } from "./command";
+import Command, { CommandSearchProperties } from "./command";
 import OpenFileCommand from "./commands/open-file-command";
 import SaveFileCommand from "./commands/save-file-command";
+import HotkeyRegistry, { HOTKEY_IDS } from "./hotkey-registry";
 
 export default class CommandRegistry {
   private static singletonInstance: CommandRegistry;
@@ -9,20 +10,10 @@ export default class CommandRegistry {
   private _commands: Command[];
 
   private constructor() {
+    const hotkeyRegistry = HotkeyRegistry.instance;
 
-    // See lib/keyboard-utils for a list of valid control and action keys
-    const openFileHotkey: Hotkey = {
-      controlKeys: ['Control'],
-      actionKey: 'o'
-    }
-
-    const saveFileHotkey: Hotkey = {
-      controlKeys: ['Control'],
-      actionKey: 's'
-    }
-
-    this._openFileCommand = new OpenFileCommand({ type: 'action', label: 'Open File', id: 'open-file', hotkey: openFileHotkey });
-    this._saveFileCommand = new SaveFileCommand({ type: 'action', label: 'Save File', id: 'save-file', hotkey: saveFileHotkey });
+    this._openFileCommand = new OpenFileCommand({ type: 'action', label: 'Open File', id: 'open-file', hotkey: hotkeyRegistry.getHotkey(HOTKEY_IDS.OPEN_FILE) });
+    this._saveFileCommand = new SaveFileCommand({ type: 'action', label: 'Save File', id: 'save-file', hotkey: hotkeyRegistry.getHotkey(HOTKEY_IDS.SAVE_FILE) });
 
     this._commands = [
       this._openFileCommand,
@@ -39,6 +30,7 @@ export default class CommandRegistry {
     return this._commands;
   }
 
+  // TODO: Implement a find fn much like HotkeyRegistry
   public findCommand(commandDetails: CommandSearchProperties) {
     console.log('Find a command with the following details: ', commandDetails);
   }

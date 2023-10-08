@@ -1,5 +1,4 @@
-// import { useEffect } from "react";
-import { Hotkey } from "@/lib/classes/command";
+import { Hotkey } from "@/lib/classes/hotkey-registry";
 import { Space_Mono as SpaceMono } from "next/font/google";
 import { keyNameForCurrentPlatform, KEY_NAME_TO_LABEL } from "@/lib/keyboard-utils";
 

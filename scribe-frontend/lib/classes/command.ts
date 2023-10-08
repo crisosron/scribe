@@ -1,7 +1,8 @@
-export type Hotkey = {
-  controlKeys: string[],
-  actionKey: string
-}
+// export type Hotkey = {
+//   controlKeys: string[],
+//   actionKey: string
+// }
+import type { Hotkey } from "./hotkey-registry"
 
 export type CommandProperties = {
   type: 'action' | 'file',
@@ -17,8 +18,5 @@ export type CommandSearchProperties = {
 }
 
 export default interface Command extends CommandProperties {
-  // type: 'action' | 'file',
-  // label: string,
-  // id: string,
   execute(): void
 }

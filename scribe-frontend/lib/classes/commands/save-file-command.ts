@@ -1,4 +1,5 @@
-import Command, { CommandProperties, Hotkey } from '../command';
+import Command, { CommandProperties } from '../command';
+import type { Hotkey } from '../hotkey-registry';
 
 export default class SaveFileCommand implements Command {
   type: "action" | "file";
