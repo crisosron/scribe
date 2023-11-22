@@ -5,11 +5,11 @@ import { keyNameForCurrentPlatform, KEY_NAME_TO_LABEL } from "@/lib/keyboard-uti
 const font = SpaceMono({ subsets: ['latin'], weight: '400' });
 
 const HotkeyHint = ({ controlKeys, actionKey }: Hotkey) => {
-  const controlKeysForPlatform = controlKeys.map((keyName) => keyNameForCurrentPlatform(keyName))
-  const controlKeyLabels = controlKeysForPlatform.map((keyName) => KEY_NAME_TO_LABEL[keyName])
+  const controlKeysForPlatform = controlKeys?.map((keyName) => keyNameForCurrentPlatform(keyName))
+  const controlKeyLabels = controlKeysForPlatform?.map((keyName) => KEY_NAME_TO_LABEL[keyName])
   return (
     <span className={`${font.className}`}>
-      { controlKeyLabels.join(' + ') } + { actionKey }
+      { controlKeyLabels?.join(' + ') } + { actionKey }
     </span>
   )
 }

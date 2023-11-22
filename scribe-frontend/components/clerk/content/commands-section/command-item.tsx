@@ -1,5 +1,4 @@
 import classNames from 'classnames';
-// import { Command } from "../content";
 import { useMatchesBreakpoint } from '@/lib/hooks/useMatchesBreakpoint';
 import Command from '@/lib/classes/command';
 import HotkeyHint from './hotkey-hint';
@@ -24,7 +23,7 @@ const CommandItem = ({ type, label, id, hotkey, active, onHover }: Props) => {
       onMouseEnter={onHover}
     >
       <div>{label}</div>
-      { !isMobile && hotkey && <HotkeyHint {...hotkey} />}
+      { !isMobile && hotkey && <HotkeyHint {...hotkey} /> }
     </div>
   )
 
