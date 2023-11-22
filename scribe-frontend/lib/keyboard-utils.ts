@@ -7,7 +7,8 @@ export const VALID_ACTION_KEYS = [
   'ArrowLeft',
   'ArrowRight',
   'o', // Open file
-  's'
+  's',
+  'Enter'
 ];
 
 export const VALID_CONTROL_KEYS = [

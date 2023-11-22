@@ -5,8 +5,6 @@ import { Hotkey } from '../classes/hotkey-registry';
 type EVENT_TYPE = 'down' | 'up'
 
 type Parameters = {
-  // targetControlKeys?: string[],
-  // targetActionKey?: string,
   hotkey: Hotkey,
   triggerEvent?: 'down' | 'up',
   callback: (e: KeyboardEvent | undefined) => void

@@ -15,6 +15,6 @@ export default class SaveFileCommand implements Command {
   }
   
   execute(): void {
-    throw new Error("Execute save file command");
+    console.log('Execute save file command');
   }
 }

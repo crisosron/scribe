@@ -15,6 +15,6 @@ export default class ToggleSidebarCommand implements Command {
   }
   
   execute(): void {
-    throw new Error("Execute toggle sidebar command");
+    console.log('Execute toggle sidebar command');
   }
 }

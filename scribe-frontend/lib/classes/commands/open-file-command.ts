@@ -15,6 +15,6 @@ export default class OpenFileCommand implements Command {
   }
   
   execute(): void {
-    throw new Error("Execute open file command");
+    console.log('Execute open file command');
   }
 }

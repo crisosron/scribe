@@ -60,6 +60,12 @@ const Content = () => {
     callback: () => navigateCommand('down')
   })
 
+  useHotkey({
+    hotkey: hotkeyRegistry.getHotkey(HOTKEY_IDS.ENTER),
+    triggerEvent: 'down',
+    callback: () => selectedCommand.execute()
+  });
+
   return (
     <div className="min-w-[80%] md:min-w-[65%] lg:min-w-[30%] min-h-[200px] bg-white-100 dark:bg-soft-black-100 shadow-2xl rounded-lg p-4">
       <Search />

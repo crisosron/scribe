@@ -5,7 +5,8 @@ export const HOTKEY_IDS = {
   ESC: 'escape',
   TAB: 'tab',
   UP: 'up',
-  DOWN: 'down'
+  DOWN: 'down',
+  ENTER: 'enter'
 }
 
 // See lib/keyboard-utils for a list of valid control and action keys
@@ -29,6 +30,7 @@ export default class HotkeyRegistry {
       { id: HOTKEY_IDS.TAB, name: 'Tab', actionKey: 'Tab' },
       { id: HOTKEY_IDS.UP, name: 'Up', actionKey: 'ArrowUp' },
       { id: HOTKEY_IDS.DOWN, name: 'Down', actionKey: 'ArrowDown' },
+      { id: HOTKEY_IDS.ENTER, name: 'Enter', actionKey: 'Enter' },
     ]
   }
 
