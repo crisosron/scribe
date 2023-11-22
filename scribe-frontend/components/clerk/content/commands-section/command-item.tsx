@@ -10,7 +10,6 @@ interface Props extends Command {
 }
 
 const CommandItem = ({ type, label, id, hotkey, active, onHover }: Props) => {
-  console.log('Command Item hotkey: ', hotkey);
   const isMobile = useMatchesBreakpoint('sm');
   return (
     <div 
