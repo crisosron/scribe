@@ -2,7 +2,10 @@ export const HOTKEY_IDS = {
   TOGGLE_CLERK: 'toggle-clerk',
   OPEN_FILE: 'open-file',
   SAVE_FILE: 'save-ile',
-  ESC: 'escape'
+  ESC: 'escape',
+  TAB: 'tab',
+  UP: 'up',
+  DOWN: 'down'
 }
 
 // See lib/keyboard-utils for a list of valid control and action keys
@@ -23,6 +26,9 @@ export default class HotkeyRegistry {
       { id: HOTKEY_IDS.OPEN_FILE, name: 'Open File', controlKeys: ['Control'], actionKey:'o' },
       { id: HOTKEY_IDS.SAVE_FILE, name: 'Save File', controlKeys: ['Control'], actionKey:'s' },
       { id: HOTKEY_IDS.ESC, name: 'Escape', actionKey:'Escape' },
+      { id: HOTKEY_IDS.TAB, name: 'Tab', actionKey: 'Tab' },
+      { id: HOTKEY_IDS.UP, name: 'Up', actionKey: 'ArrowUp' },
+      { id: HOTKEY_IDS.DOWN, name: 'Down', actionKey: 'ArrowDown' },
     ]
   }
 

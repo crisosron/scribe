@@ -44,7 +44,7 @@ const GlobalContextProvider = ({ children }: GlobalContextProviderProps) => {
   const hotkeyRegistry = HotkeyRegistry.instance;
 
   useHotkey({
-    hotkey: hotkeyRegistry.getHotkey(HOTKEY_IDS.TOGGLE_CLERK ),
+    hotkey: hotkeyRegistry.getHotkey(HOTKEY_IDS.TOGGLE_CLERK),
     callback: () => toggleClerk()
   });
 

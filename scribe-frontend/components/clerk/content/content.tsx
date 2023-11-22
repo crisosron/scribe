@@ -6,6 +6,7 @@ import HintBar from "./hint-bar/hint-bar";
 import Commands from "./commands-section/commands-section";
 import { useGlobalContext } from "@/lib/contexts/global-context";
 import Command from "@/lib/classes/command";
+import { HOTKEY_IDS } from "@/lib/classes/hotkey-registry";
 
 const Content = () => {
   const segments: Segment[] = [
@@ -14,7 +15,7 @@ const Content = () => {
     { label: 'Files', selectedStyles: 'bg-gold-100 bg-opacity-25 text-gold-500 dark:text-gold-100' }
   ]
 
-  const { commandRegistry } = useGlobalContext(); 
+  const { commandRegistry, hotkeyRegistry } = useGlobalContext(); 
   console.log('commandRegistry.commands: ', commandRegistry.allCommands);
 
   // TODO: This needs to be filtered based on the current segment
@@ -38,7 +39,8 @@ const Content = () => {
   }
 
   useHotkey({
-    targetActionKey: 'Tab',
+    // targetActionKey: 'Tab',
+    hotkey: hotkeyRegistry.getHotkey(HOTKEY_IDS.TAB),
     triggerEvent: 'down',
     callback: () => {
       const currentSegmentIndex = segments.findIndex(segment => segment.label === selectedSegment.label);
@@ -48,13 +50,13 @@ const Content = () => {
   })
 
   useHotkey({
-    targetActionKey: 'ArrowUp',
+    hotkey: hotkeyRegistry.getHotkey(HOTKEY_IDS.UP),
     triggerEvent: 'down',
     callback: () => navigateCommand('up')
   })
 
   useHotkey({
-    targetActionKey: 'ArrowDown',
+    hotkey: hotkeyRegistry.getHotkey(HOTKEY_IDS.DOWN),
     triggerEvent: 'down',
     callback: () => navigateCommand('down')
   })
