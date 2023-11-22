@@ -36,6 +36,8 @@ export default class CommandRegistry {
 
   // TODO: Implement a find fn much like HotkeyRegistry
   public findCommand(commandDetails: CommandSearchProperties) {
-    console.log('Find a command with the following details: ', commandDetails);
+    const command = this._commands.find((command) => command.id === commandDetails.id);
+    if(!command) throw new Error(`Command with the id ${commandDetails.id} could not be found`);
+    return command;
   }
 }

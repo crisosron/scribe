@@ -16,7 +16,6 @@ const Content = () => {
   ]
 
   const { commandRegistry, hotkeyRegistry } = useGlobalContext(); 
-  console.log('commandRegistry.commands: ', commandRegistry.allCommands);
 
   // TODO: This needs to be filtered based on the current segment
   const commands = commandRegistry.allCommands;

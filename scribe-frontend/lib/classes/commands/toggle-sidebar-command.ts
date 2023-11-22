@@ -14,7 +14,6 @@ export default class ToggleSidebarCommand implements Command {
     this.hotkey = properties.hotkey;
   }
   
-  execute(): void {
-    console.log('Execute toggle sidebar command');
-  }
+  // Note: the toggle sidebar command is a frontend-only command
+  execute(): void {}
 }
