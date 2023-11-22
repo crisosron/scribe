@@ -1,7 +1,3 @@
-// export type Hotkey = {
-//   controlKeys: string[],
-//   actionKey: string
-// }
 import type { Hotkey } from "./hotkey-registry"
 
 export type CommandProperties = {

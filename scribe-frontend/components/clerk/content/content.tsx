@@ -39,7 +39,6 @@ const Content = () => {
   }
 
   useHotkey({
-    // targetActionKey: 'Tab',
     hotkey: hotkeyRegistry.getHotkey(HOTKEY_IDS.TAB),
     triggerEvent: 'down',
     callback: () => {

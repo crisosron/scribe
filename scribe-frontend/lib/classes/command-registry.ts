@@ -1,12 +1,14 @@
 import Command, { CommandSearchProperties } from "./command";
 import OpenFileCommand from "./commands/open-file-command";
 import SaveFileCommand from "./commands/save-file-command";
+import ToggleSidebarCommand from "./commands/toggle-sidebar-command";
 import HotkeyRegistry, { HOTKEY_IDS } from "./hotkey-registry";
 
 export default class CommandRegistry {
   private static singletonInstance: CommandRegistry;
   private _openFileCommand: Command;
   private _saveFileCommand: Command;
+  private _toggleSidebarCommand: Command;
   private _commands: Command[];
 
   private constructor() {
@@ -14,10 +16,12 @@ export default class CommandRegistry {
 
     this._openFileCommand = new OpenFileCommand({ type: 'action', label: 'Open File', id: 'open-file', hotkey: hotkeyRegistry.getHotkey(HOTKEY_IDS.OPEN_FILE) });
     this._saveFileCommand = new SaveFileCommand({ type: 'action', label: 'Save File', id: 'save-file', hotkey: hotkeyRegistry.getHotkey(HOTKEY_IDS.SAVE_FILE) });
+    this._toggleSidebarCommand = new ToggleSidebarCommand({ type: 'action', label: 'Toggle Sidebar', id: 'toggle-sidebar' });
 
     this._commands = [
       this._openFileCommand,
-      this._saveFileCommand
+      this._saveFileCommand,
+      this._toggleSidebarCommand
     ];
   }
 
