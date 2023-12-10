@@ -21,10 +21,8 @@ const Content = () => {
 
   // TODO: This needs to be filtered based on the current segment
   const commands = commandRegistry.allCommands;
-  console.log('commands in clerk: ', commands);
 
   useMemo(() => {
-    console.log('called use memo');
     const toggleSidebarCommand = commandRegistry.findCommand({ id: 'toggle-sidebar' });
     if(toggleSidebarCommand) {
       toggleSidebarCommand.additionalAction = () => toggleSidebar();

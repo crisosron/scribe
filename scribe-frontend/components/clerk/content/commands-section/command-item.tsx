@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import { useMatchesBreakpoint } from '@/lib/hooks/useMatchesBreakpoint';
 import Command from '@/lib/classes/command';
 import HotkeyHint from './hotkey-hint';
+import { useGlobalContext } from '@/lib/contexts/global-context';
 
 type Props = {
   command: Command;
@@ -9,9 +10,9 @@ type Props = {
   onHover: () => void;
 }
 
-// TODO: Set up onClick to execute the command, and dismiss Clerk
 const CommandItem = ({ command, active, onHover }: Props) => {
   const isMobile = useMatchesBreakpoint('sm');
+  const { toggleClerk } = useGlobalContext();
   return (
     <div 
       className={
@@ -23,6 +24,10 @@ const CommandItem = ({ command, active, onHover }: Props) => {
         )
       }
       onMouseEnter={onHover}
+      onClick={() => {
+        command.executeCommand();
+        toggleClerk();
+      }}
     >
       <div>{command.label}</div>
       { !isMobile && command.hotkey && <HotkeyHint {...command.hotkey} /> }
