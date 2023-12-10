@@ -78,7 +78,14 @@ const Content = () => {
   });
 
   return (
-    <div className="min-w-[80%] md:min-w-[65%] lg:min-w-[30%] min-h-[200px] bg-white-100 dark:bg-soft-black-100 shadow-2xl rounded-lg p-4">
+    <div 
+      className="min-w-[80%] md:min-w-[65%] lg:min-w-[30%] min-h-[200px] bg-white-100 dark:bg-soft-black-100 shadow-2xl rounded-lg p-4"
+      onClick={(e) => {
+        // Stop propagation of click event to parent Overlay container to prevent
+        // the onClick on the Overlay component from being triggered
+        e.stopPropagation();
+      }}
+    >
       <Search />
       <HintBar />
       <SegmentMenu selectedSegment={selectedSegment} setSelectedSegment={setSelectedSegment} segments={segments} />
