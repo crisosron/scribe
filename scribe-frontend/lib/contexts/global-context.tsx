@@ -55,12 +55,12 @@ const GlobalContextProvider = ({ children }: GlobalContextProviderProps) => {
 
   useHotkey({
     hotkey: hotkeyRegistry.getHotkey(HOTKEY_IDS.OPEN_FILE),
-    callback: () => commandRegistry.findCommand({ id: 'open-file' }).execute()
+    callback: () => commandRegistry.findCommand({ id: 'open-file' }).executeCommand()
   })
 
   useHotkey({
     hotkey: hotkeyRegistry.getHotkey(HOTKEY_IDS.SAVE_FILE),
-    callback: () => commandRegistry.findCommand({ id: 'save-file' }).execute()
+    callback: () => commandRegistry.findCommand({ id: 'save-file' }).executeCommand()
   })
 
   const toggleClerk = () => {

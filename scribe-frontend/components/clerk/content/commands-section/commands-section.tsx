@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
-import { Command } from "../content";
 import CommandItem from "./command-item";
+import Command from "@/lib/classes/command";
 
 type Props = {
   commands: Command[]
@@ -12,7 +12,14 @@ const CommandsSection = ({ commands, setSelectedCommand, selectedCommand }: Prop
   return (
     <div className="w-full text-sm my-4">
       {commands && commands.length > 0 && commands.map((command) => {
-        return <CommandItem onHover={() => setSelectedCommand(command)} key={command.id} {...command} active={selectedCommand.id === command.id} />
+        return (
+          <CommandItem 
+            onHover={() => setSelectedCommand(command)}
+            key={command.id}
+            command={command}
+            active={selectedCommand.id === command.id}
+          />
+        )
       })}
     </div>
   )

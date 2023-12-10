@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import useHotkey from "@/lib/hooks/useHotkey";
 import Search from "./search/search";
 import SegmentMenu, { Segment } from "./segment-menu/segment-menu";
@@ -7,6 +7,7 @@ import Commands from "./commands-section/commands-section";
 import { useGlobalContext } from "@/lib/contexts/global-context";
 import Command from "@/lib/classes/command";
 import { HOTKEY_IDS } from "@/lib/classes/hotkey-registry";
+import { useSidebarContext } from "@/lib/contexts/sidebar-context";
 
 const Content = () => {
   const segments: Segment[] = [
@@ -15,10 +16,20 @@ const Content = () => {
     { label: 'Files', selectedStyles: 'bg-gold-100 bg-opacity-25 text-gold-500 dark:text-gold-100' }
   ]
 
-  const { commandRegistry, hotkeyRegistry } = useGlobalContext(); 
+  const { commandRegistry, hotkeyRegistry, toggleClerk } = useGlobalContext(); 
+  const { toggleSidebar } = useSidebarContext();
 
   // TODO: This needs to be filtered based on the current segment
   const commands = commandRegistry.allCommands;
+  console.log('commands in clerk: ', commands);
+
+  useMemo(() => {
+    console.log('called use memo');
+    const toggleSidebarCommand = commandRegistry.findCommand({ id: 'toggle-sidebar' });
+    if(toggleSidebarCommand) {
+      toggleSidebarCommand.additionalAction = () => toggleSidebar();
+    }
+  }, [commandRegistry, toggleSidebar])
 
   const [selectedSegment, setSelectedSegment] = useState<Segment>(segments[0]);
   const [selectedCommand, setSelectedCommand] = useState<Command>(commands[0]);
@@ -62,7 +73,10 @@ const Content = () => {
   useHotkey({
     hotkey: hotkeyRegistry.getHotkey(HOTKEY_IDS.ENTER),
     triggerEvent: 'down',
-    callback: () => selectedCommand.execute()
+    callback: () => {
+      selectedCommand.executeCommand()
+      toggleClerk();
+    }
   });
 
   return (
