@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "zW3WS4M/jlCUbSld9tyynzbSVHw7lCKa4DhBX6lMDKA=",
+  "Source": "scribe-api",
+  "BasePath": "_content/scribe-api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
