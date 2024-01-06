@@ -51,7 +51,7 @@ const Content = () => {
     triggerEvent: 'down',
     callback: () => {
       const currentSegmentIndex = segments.findIndex(segment => segment.label === selectedSegment.label);
-      if(currentSegmentIndex === segments.length - 1) setSelectedSegment(segments[0]);
+      if(currentSegmentIndex === segments.length - 1) setSelectedSegment(segments[0]); // Wrap back to the first segment
       else setSelectedSegment(segments[currentSegmentIndex + 1]);
     }
   })
