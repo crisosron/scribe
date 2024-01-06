@@ -11,6 +11,25 @@ services:
     volumes:
       - ./scribe-frontend:/usr/app/scribe-frontend
       - /usr/app/scribe-frontend/node_modules
+  database:
+    image: postgres
+    restart: always
+    user: postgres
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=backend-db
+      - POSTGRES_PASSWORD=password
+    expose:
+      - 5432
+    healthcheck:
+      test: ["CMD", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  db-data:
 
 networks:
   scribe-app-network:
